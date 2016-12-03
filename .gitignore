@@ -22,5 +22,8 @@
 # Ignore builded assets.
 /public/assets/*
 
+# Ignore coverage information.
+/coverage
+
 # Ignore Byebug command history file.
 .byebug_history

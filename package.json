@@ -9,7 +9,8 @@
     "webpack": "NODE_ENV=production webpack --config frontend/config/production/webpack.config.js",
     "build": "npm run clean && npm run webpack",
     "hypernova": "babel-node hypernova.js",
-    "test": "NODE_ENV=test mocha frontend/test/**/*.js --compilers js:babel-register -r frontend/config/test/jsdom"
+    "test": "NODE_ENV=test mocha --recursive frontend/test --reporter dot --timeout 10000 --compilers js:babel-register -r frontend/config/test/jsdom",
+    "test-cov": "babel-node $(npm bin)/isparta cover --include 'frontend/javascripts/**/*.js' --report html --report text _mocha -- --recursive frontend/test --reporter dot --timeout 10000 --compilers js:babel-register -r frontend/config/test/jsdom"
   },
   "keywords": [],
   "author": "",
@@ -32,6 +33,7 @@
     "chokidar": "^1.6.1",
     "enzyme": "^2.6.0",
     "glob": "^7.1.1",
+    "isparta": "^4.0.0",
     "jsdom": "^9.8.3",
     "mocha": "^3.2.0",
     "power-assert": "^1.4.2",
