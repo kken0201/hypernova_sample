@@ -4,25 +4,25 @@ import React, { Component, PropTypes } from 'react';
 class Modal extends Component {
   static propTypes = {
     children: PropTypes.node,
-    onRequestClose: PropTypes.func
+    onRequestClose: PropTypes.func,
   };
 
   constructor(props) {
     super(props);
     this.handleClose = this.handleClose.bind(this);
     this.state = {
-      isActive: true
-    }
-  }
-
-  // SSR時には呼ばれないライフサイクルメソッド
-  componentDidMount() {
-    this.timer = setTimeout(this.handleClose, 3000);
+      isActive: true,
+    };
   }
 
   // こちらは呼ばれる
   componentWillMount() {
     // 特になし
+  }
+
+  // SSR時には呼ばれないライフサイクルメソッド
+  componentDidMount() {
+    this.timer = setTimeout(this.handleClose, 3000);
   }
 
   componentWillUnmount() {
@@ -36,17 +36,17 @@ class Modal extends Component {
     if (typeof onRequestClose === 'function') {
       onRequestClose();
     }
-    this.setState({isActive: false});
+    this.setState({ isActive: false });
   }
 
   render() {
     if (this.state.isActive) {
       return (
-        <div className='modal'>
-          <button className='modal__close' onClick={this.handleClose}>
+        <div className="modal">
+          <button className="modal__close" onClick={this.handleClose}>
             Close!
           </button>
-          <div className='modal__body'>
+          <div className="modal__body">
             <p>もーだるのなかみ</p>
             {this.props.children}
           </div>
@@ -58,4 +58,4 @@ class Modal extends Component {
   }
 }
 
-module.exports = renderReact('Modal.js', Modal)
+module.exports = renderReact('Modal.js', Modal);
