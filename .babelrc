@@ -2,12 +2,5 @@
   "presets": ["es2015", "react"],
   "plugins": [
     "transform-class-properties"
-  ],
-  "env": {
-    "test": {
-      "presets": [
-        "power-assert"
-      ]
-    }
-  }
+  ]
 }

@@ -9,8 +9,28 @@
     "webpack": "NODE_ENV=production webpack --config frontend/config/production/webpack.config.js",
     "build": "npm run clean && npm run webpack",
     "hypernova": "babel-node hypernova.js",
-    "test": "NODE_ENV=test mocha --recursive frontend/test --reporter dot --timeout 10000 --compilers js:babel-register -r frontend/config/test/jsdom",
-    "test-cov": "babel-node $(npm bin)/isparta cover --include 'frontend/javascripts/**/*.js' --report html --report text _mocha -- --recursive frontend/test --reporter dot --timeout 10000 --compilers js:babel-register -r frontend/config/test/jsdom"
+    "test": "NODE_ENV=test ava --verbose",
+    "test-cov": "nyc --reporter=lcov --reporter=text npm test"
+  },
+  "ava": {
+    "require": [
+      "babel-register",
+      "./frontend/config/test/setup-browser-env.js"
+    ],
+    "files": [
+      "./frontend/test/**/*.js"
+    ],
+    "source": [
+      "**/*.{js,jsx}"
+    ],
+    "babel": "inherit",
+    "powerAssert": true
+  },
+  "nyc": {
+    "exclude": [
+      "**/config/**/*.js",
+      "**/test/**/*.js"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -22,6 +42,8 @@
     "react-dom": "^15.4.1"
   },
   "devDependencies": {
+    "ava": "^0.17.0",
+    "ava-spec": "^1.0.1",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",
     "babel-eslint": "^7.1.1",
@@ -31,6 +53,7 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.18.0",
+    "browser-env": "^2.0.16",
     "chokidar": "^1.6.1",
     "enzyme": "^2.6.0",
     "eslint": "^3.11.1",
@@ -39,10 +62,7 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.7.1",
     "glob": "^7.1.1",
-    "isparta": "^4.0.0",
-    "jsdom": "^9.8.3",
-    "mocha": "^3.2.0",
-    "power-assert": "^1.4.2",
+    "nyc": "^10.0.0",
     "react-addons-test-utils": "^15.4.1",
     "react-hot-loader": "^3.0.0-beta.6",
     "rimraf": "^2.5.4",
